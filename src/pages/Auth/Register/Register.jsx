@@ -1,11 +1,14 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../Hooks/useAuth';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import SocilaLogin from '../SocialLogin/SocilaLogin';
+import axios from 'axios';
 
 const Register = () => {
-  const {registerUser} = useAuth()
+  const location = useLocation()
+  const navigate = useNavigate()
+  const {registerUser, updateProfileUser} = useAuth()
   const {
     register,
     handleSubmit,
@@ -14,11 +17,35 @@ const Register = () => {
   const handleRegistration = (data) => {
     // console.log('after register',data)
     console.log('after register',data.photo[0])
+    const profileImg = data.photo[0]
     registerUser(data.email, data.password)
     .then(result => {
       console.log(result.user)
-      // update user profile
+      //store the image and the photo URL
+      // prepare form data for imgBB
+      const formData = new FormData()
+      formData.append('image', profileImg)
+    const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host}`
+      axios.post(image_API_URL, formData)
+      .then(res => {
+        // console.log('after image upload', res)
+        console.log('after image upload', res.data.data.url)
+        // update user profile
+        const userProfile = {
+          displayName : data.name,
+          photoURL : res.data.data.url
+        }
+        updateProfileUser(userProfile)
+        .then(() => {
+          console.log('user profile updated done')
+          navigate(location.state || '/')
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      })
       
+
     })
    
     .catch(error => {
@@ -68,7 +95,7 @@ const Register = () => {
           </div>
           <button className="btn bg-[#caeb66] mt-4">Register</button>
         </fieldset>
-         <p>Already have an account<Link to='/login' className='underline text-blue-500'> login</Link></p>
+         <p>Already have an account<Link state={location.state} to='/login' className='underline text-blue-500'> login</Link></p>
       </form>
       <SocilaLogin></SocilaLogin>
     </div>

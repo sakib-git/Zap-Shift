@@ -1,11 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../Hooks/useAuth';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate,  } from 'react-router';
 import SocilaLogin from '../SocialLogin/SocilaLogin';
 
 const Login = () => {
   const navigate = useNavigate()
+  const location = useLocation()
   const {signInUser} = useAuth()
     const {
     register,
@@ -18,6 +19,7 @@ const Login = () => {
     signInUser(data.email, data.password)
     .then(result => {
       console.log(result.user)
+      navigate(location?.state || '/')
     })
     //  .then( () => {
     //   navigate('/')
@@ -57,7 +59,7 @@ const Login = () => {
           </div>
           <button className="btn bg-[#caeb66] mt-4">Log in</button>
         </fieldset>
-        <p>New to zap shift <Link to='/register' className='underline text-blue-500'>Register</Link></p>
+        <p>New to zap shift <Link state={location.state} to='/register' className='underline text-blue-500'>Register</Link></p>
       </form>
       <SocilaLogin></SocilaLogin>
     </div>

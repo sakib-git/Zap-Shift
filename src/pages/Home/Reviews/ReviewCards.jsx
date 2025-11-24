@@ -3,7 +3,7 @@ import React from 'react';
 const ReviewCards = ({review}) => {
     const {userName, review : testimonial, user_photoURL } = review
   return (
-    <div class="max-w-sm p-6 bg-white rounded-2xl shadow border border-gray-200">
+    <div class="max-w-sm p-6 bg-white rounded-2xl shadow border border-gray-200 mb-20">
   
   {/* <!-- Quote Icon --> */}
   <div class="text-teal-300 text-4xl mb-3">❝</div>
