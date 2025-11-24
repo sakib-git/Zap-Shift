@@ -26,6 +26,11 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
+        <NavLink to="/send-parcel" className={({ isActive }) => (isActive ? 'bg-[#caeb66]' : '')}>
+          Send Parcel
+        </NavLink>
+      </li>
+      <li>
         <NavLink to="/coverage" className={({ isActive }) => (isActive ? 'bg-[#caeb66]' : '')}>
           Coverage
         </NavLink>
