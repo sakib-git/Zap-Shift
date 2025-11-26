@@ -1,16 +1,21 @@
 import React from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { useLoaderData } from 'react-router';
+import { useLoaderData, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import useAuth from './../../Hooks/useAuth';
 
 const SendParcel = () => {
   const {
     register,
     handleSubmit,
     control,
-    formState: { errors },
+    // formState: { errors },
   } = useForm();
+  const {user} = useAuth()
+  const axiosSecure = useAxiosSecure()
   const serviceCenters = useLoaderData();
+  const navigate = useNavigate()
   // console.log(serviceCenters)
   const regionsDuplicate = serviceCenters.map((c) => c.region);
   // console.log(regionsDuplicate)
@@ -50,6 +55,7 @@ const SendParcel = () => {
       }
     }
     console.log('cost', cost)
+    data.cost = cost;
     Swal.fire({
   title: "Please confirm the price",
   text: `You will be charged! ${cost} taka`,
@@ -60,11 +66,25 @@ const SendParcel = () => {
   confirmButtonText: "Yes, take it!"
 }).then((result) => {
   if (result.isConfirmed) {
-    Swal.fire({
-      title: "Deleted!",
-      text: "Your file has been deleted.",
-      icon: "success"
+
+    // save the parcel info to the database
+    axiosSecure.post('/parcels',data)
+    .then(res => {
+      console.log('after saving parcel', res.data)
+      // return res.data
+      if(res.data.insertedId){
+        navigate('/dashboard/my-parcels')
+ Swal.fire({
+      position: 'top-end',
+      icon: "success",
+      title: 'parcel has created. please pay' ,
+      showConfirmButton: false,
+      timer: 2500
+       
     });
+      }
+    })
+   
   }
 });
   };
@@ -104,11 +124,13 @@ const SendParcel = () => {
           <fieldset className="fieldset">
             <h4 className="text-2xl font-semibold">Sender Details</h4>
             <label className="label">Sender Name</label>
-            <input type="text" {...register('SenderName')} className="input w-full focus:outline-0" placeholder="Sender Name" />
+            <input type="text" {...register('SenderName')} defaultValue={user?.displayName} 
+            className="input w-full focus:outline-0" placeholder="Sender Name" />
 
             {/* sender Email    */}
             <label className="label">Sender Email</label>
-            <input type="email" {...register('SenderEmail')} className="input w-full focus:outline-0" placeholder="Sender Email" />
+            <input type="email" {...register('SenderEmail')} defaultValue={user?.email}
+            className="input w-full focus:outline-0" placeholder="Sender Email" />
             {/* sender Number    */}
             <label className="label">Sender Number</label>
             <input type="text" {...register('SenderNumber')} className="input w-full focus:outline-0" placeholder="Sender Number" />

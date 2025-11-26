@@ -35,6 +35,15 @@ const Navbar = () => {
           Coverage
         </NavLink>
       </li>
+      {
+        user && <>
+            <li>
+        <NavLink to="/dashboard/my-parcels" className={({ isActive }) => (isActive ? 'bg-[#caeb66]' : '')}>
+          My Parcels
+        </NavLink>
+      </li>
+         </>
+      }
     </>
   );
   return (
