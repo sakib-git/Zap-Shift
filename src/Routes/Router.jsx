@@ -8,7 +8,7 @@ import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
 import Rider from "../pages/Rider/Rider";
 import PrivateRoute from "./PrivateRoute";
-import SendParcel from "../pages/sendParcel/sendParcel";
+import SendParcel from "../pages/SendParcel/SendParcel";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import MyParcels from "../pages/Dashboard/myParcels/MyParcels";
 import Payment from "../pages/Dashboard/Payment/Payment";
