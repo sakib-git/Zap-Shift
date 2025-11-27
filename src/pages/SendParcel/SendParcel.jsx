@@ -207,7 +207,7 @@ const SendParcel = () => {
             <input type="text" {...register('ReceiverAddress')} className="input w-full focus:outline-0" placeholder="Sender Receiver" />
           </fieldset>
         </div>
-        <input type="submit" className="btn bg-[#caeb66] text-black" value="Send Parcel" />
+        <input type="submit" className="btn mt-3 bg-[#caeb66] text-black" value="Send Parcel" />
       </form>
     </div>
   );

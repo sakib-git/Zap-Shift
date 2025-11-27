@@ -1,4 +1,4 @@
-import React from 'react';
+
 import Banner from '../Banner/Banner';
 import Work from '../Work/Work';
 import Service from '../OurService/Service';

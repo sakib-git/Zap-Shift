@@ -13,10 +13,13 @@ const MyParcels = () => {
   const { data: parcels = [], refetch } = useQuery({
     queryKey: ['myParcels', user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/parcels?email=${user.email}`);
+      const res = await axiosSecure.get(`/parcels?email=${user?.email}`);
       return res.data;
     },
+  
   });
+
+
 
   const handleParcelDelete = (id) => {
     console.log(id);
@@ -76,7 +79,7 @@ const MyParcels = () => {
               <th>ReceiverEmail</th>
               <th>Time</th>
               <th>Payment</th>
-              <th>Delivery Status</th>
+              {/* <th>Delivery Status</th> */}
               <th>Actions</th>
             </tr>
           </thead>
@@ -101,16 +104,16 @@ const MyParcels = () => {
                     // </Link>
                   }
                 </td>
-                <td>{parcel.deliveryStatus}</td>
+                {/* <td>{parcel.deliveryStatus}</td> */}
                 <td>
-                  <button className="btn btn-square hover:bg-[#caeb67]">
+                  <button className="btn btn-square hover:bg-[#caeb67] tooltip tooltip-top" data-tip="View parcel">
                     <FaMagnifyingGlass></FaMagnifyingGlass>
                   </button>
-                  <button className="btn btn-square hover:bg-[#caeb67] mx-2">
+                  <button className="btn btn-square hover:bg-[#caeb67] mx-2 tooltip tooltip-top" data-tip="Edit Parcel">
                     <FiEdit></FiEdit>
                   </button>
-                  <button onClick={() => handleParcelDelete(parcel._id)} className="btn btn-square hover:bg-[#caeb67] ">
-                    <FaTrashCan></FaTrashCan>
+                  <button onClick={() => handleParcelDelete(parcel._id)} className="btn btn-square hover:bg-[#caeb67] tooltip tooltip-top" data-tip="Delete Parcel">
+                    <FaTrashCan ></FaTrashCan>
                   </button>
                 </td>
               </tr>
