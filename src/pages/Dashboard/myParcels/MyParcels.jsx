@@ -79,7 +79,8 @@ const MyParcels = () => {
               <th>ReceiverEmail</th>
               <th>Time</th>
               <th>Payment</th>
-              {/* <th>Delivery Status</th> */}
+              <th>TdrackingId</th>
+              <th>Delivery Status</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -104,7 +105,8 @@ const MyParcels = () => {
                     // </Link>
                   }
                 </td>
-                {/* <td>{parcel.deliveryStatus}</td> */}
+                <td>{parcel.trackingId}</td>
+                <td>{parcel.deliveryStatus}</td>
                 <td>
                   <button className="btn btn-square hover:bg-[#caeb67] tooltip tooltip-top" data-tip="View parcel">
                     <FaMagnifyingGlass></FaMagnifyingGlass>
