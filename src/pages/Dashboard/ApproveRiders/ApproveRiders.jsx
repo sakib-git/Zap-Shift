@@ -1,4 +1,4 @@
-import React from 'react';
+
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { FaTrashCan, FaUserCheck } from 'react-icons/fa6';
@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 
 const ApproveRiders = () => {
   const axiosSscure = useAxiosSecure();
+
   const { refetch, data: riders = [] } = useQuery({
     queryKey: ['riders', 'pending'],
     queryFn: async () => {
@@ -118,6 +119,7 @@ updateRiderStatus(rider, 'rejected')
           </tbody>
         </table>
       </div>
+
     </div>
   );
 };
